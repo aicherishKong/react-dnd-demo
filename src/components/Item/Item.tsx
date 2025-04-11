@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import classNames from 'classnames';
-import type {DraggableSyntheticListeners} from '@dnd-kit/core';
-import type {Transform} from '@dnd-kit/utilities';
+import type { DraggableSyntheticListeners } from '@dnd-kit/core';
+import type { Transform } from '@dnd-kit/utilities';
 
-import {Handle, Remove} from './components';
+import { Handle, Remove } from './components';
 
-import styles from './Item.module.css';
+import styles from './Item.module.scss';
 
 export interface Props {
   dragOverlay?: boolean;
@@ -78,21 +78,7 @@ export const Item = React.memo(
         };
       }, [dragOverlay]);
 
-      return renderItem ? (
-        renderItem({
-          dragOverlay: Boolean(dragOverlay),
-          dragging: Boolean(dragging),
-          sorting: Boolean(sorting),
-          index,
-          fadeIn: Boolean(fadeIn),
-          listeners,
-          ref,
-          style,
-          transform,
-          transition,
-          value,
-        })
-      ) : (
+      return (
         <li
           className={classNames(
             styles.Wrapper,
@@ -139,7 +125,7 @@ export const Item = React.memo(
             {...props}
             tabIndex={!handle ? 0 : undefined}
           >
-            {value}
+            aic-{value}
             <span className={styles.Actions}>
               {onRemove ? (
                 <Remove className={styles.Remove} onClick={onRemove} />

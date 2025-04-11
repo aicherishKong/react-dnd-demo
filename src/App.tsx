@@ -4,7 +4,7 @@ function App() {
 
   return (
     <>
-      <MultipleContainers itemCount={5} vertical />
+      <MultipleContainers itemCount={3} vertical />
     </>
   )
 }
