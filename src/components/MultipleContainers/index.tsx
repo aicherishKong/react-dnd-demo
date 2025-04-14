@@ -99,7 +99,6 @@ function DroppableContainer({
       columns={columns}
       {...props}
     >
-      <span className="text-red-400">container-head</span>
       {children}
     </Container>
   );
@@ -168,15 +167,22 @@ export function MultipleContainers({
   vertical = false,
   scrollable,
 }: Props) {
-  const [items, setItems] = useState<Items>(
-    () =>
-      initialItems ?? {
-        A: createRange(itemCount, (index) => `A${index + 1}`),
-        B: createRange(itemCount, (index) => `B${index + 1}`),
-        C: createRange(itemCount, (index) => `C${index + 1}`),
-        // D: createRange(itemCount, (index) => `D${index + 1}`),
-      }
+  const [sourceItems, setSourceItems] = useState(
+    initialItems ?? {
+      A: createRange(itemCount, (index) => `A${index + 1}`),
+      B: createRange(itemCount, (index) => `B${index + 1}`),
+      C: createRange(itemCount, (index) => `C${index + 1}`),
+      // D: createRange(itemCount, (index) => `D${index + 1}`),
+    }
   );
+
+  const [items, setItems] = useState<Items>(() =>
+    Object.keys(initialItems ?? {}).reduce((acc, key) => {
+      acc[key] = initialItems?.[key].map(({ name }) => name) ?? [];
+      return acc;
+    }, {} as Items)
+  );
+
   const [containers, setContainers] = useState(
     Object.keys(items) as UniqueIdentifier[]
   );
